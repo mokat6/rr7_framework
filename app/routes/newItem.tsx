@@ -23,7 +23,7 @@ export async function action({ request }: ActionFunctionArgs) {
     // Insert into DynamoDB
     await ddb.send(
       new PutCommand({
-        TableName: "rr7_table_todo",
+        TableName: process.env.DYNAMO_TABLE,
         Item: {
           ppkeylolhahaha: id, // ✅ must match your table's PK name
           title,

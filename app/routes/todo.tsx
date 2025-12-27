@@ -6,7 +6,7 @@ import { ddb } from "~/server/db/dynamo";
 export async function loader(_args: LoaderFunctionArgs) {
   const result = await ddb.send(
     new ScanCommand({
-      TableName: "rr7_table_todo",
+      TableName: process.env.DYNAMO_TABLE,
     })
   );
 

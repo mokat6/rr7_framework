@@ -12,7 +12,7 @@ export async function loader() {
   try {
     const result = await ddb.send(
       new ScanCommand({
-        TableName: "rr7_table_todo", // your table name
+        TableName: process.env.DYNAMO_TABLE, // your table name
       })
     );
     // console.log("xx ", result);
