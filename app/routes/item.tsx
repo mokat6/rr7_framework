@@ -24,7 +24,7 @@ export async function loader({ params }: Route.LoaderArgs) {
   try {
     const result = await ddb.send(
       new GetCommand({
-        TableName: "rr7_table_todo", // your DynamoDB table name
+        TableName: process.env.DYNAMO_TABLE, // your DynamoDB table name
         Key: {
           ppkeylolhahaha: id, // must match your table's PK
         },
@@ -56,7 +56,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       // Delete item
       await ddb.send(
         new DeleteCommand({
-          TableName: "rr7_table_todo",
+          TableName: process.env.DYNAMO_TABLE,
           Key: { ppkeylolhahaha: id },
         })
       );
@@ -71,7 +71,7 @@ export async function action({ request, params }: ActionFunctionArgs) {
       // Update item
       await ddb.send(
         new UpdateCommand({
-          TableName: "rr7_table_todo",
+          TableName: process.env.DYNAMO_TABLE,
           Key: { ppkeylolhahaha: id },
           UpdateExpression: "SET #t = :title, #d = :desc",
           ExpressionAttributeNames: {
