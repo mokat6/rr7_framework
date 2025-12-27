@@ -1,11 +1,4 @@
-import {
-  isRouteErrorResponse,
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
-} from "react-router";
+import { isRouteErrorResponse, Links, Meta, NavLink, Outlet, Scripts, ScrollRestoration } from "react-router";
 
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -32,7 +25,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="min-h-screen">
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -42,7 +35,29 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <>
+      <nav className="container mx-auto flex gap-16 p-4">
+        <NavLink to="/" className="text-2xl font-bold text-indigo-600">
+          RRv7 Crud
+        </NavLink>
+        <div className="flex gap-5">
+          <NavLink to="/" className={({ isActive }) => (isActive ? "text-indigo-600" : "")}>
+            Items
+          </NavLink>
+          <NavLink to="/home" className={({ isActive }) => (isActive ? "text-indigo-600" : "")}>
+            Home (not)
+          </NavLink>
+          <NavLink to="/new" className={({ isActive }) => (isActive ? "text-indigo-600" : "")}>
+            New Item
+          </NavLink>
+        </div>
+      </nav>
+      <main className="container mx-auto bg-gray-700">
+        <Outlet />
+      </main>
+    </>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
@@ -52,10 +67,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
 
   if (isRouteErrorResponse(error)) {
     message = error.status === 404 ? "404" : "Error";
-    details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
+    details = error.status === 404 ? "The requested page could not be found." : error.statusText || details;
   } else if (import.meta.env.DEV && error && error instanceof Error) {
     details = error.message;
     stack = error.stack;
