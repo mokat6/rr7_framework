@@ -2,7 +2,7 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient } from "@aws-sdk/lib-dynamodb";
 
 // const client = new DynamoDBClient({
-//   region: process.env.AWS_DYNAMO_REGION ?? "us-east-1", // match your table region
+//   region: process.env.AWS_DYNAMO_REGION, // match your table region
 // });
 
 export const client = new DynamoDBClient({
